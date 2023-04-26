@@ -3,6 +3,24 @@ body {
 }
 
 .CurrentWeather{
-    width: 100%;
+    width: 85%;
     border-style: solid;
+    display: none;
 };
+
+h3{
+    width: 100%;
+};
+
+.sd{
+    display: none;
+}
+
+.block {
+    display: block;
+}
+
+.weather-icon{
+    width: 5px;
+    height: 5px
+}
