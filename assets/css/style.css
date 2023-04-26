@@ -12,7 +12,7 @@ h3{
     width: 100%;
 };
 
-.sd{
+#sd{
     display: none;
 }
 
@@ -23,4 +23,13 @@ h3{
 .weather-icon{
     width: 5px;
     height: 5px
-}
+};
+
+.dashboard{
+    
+    color: white;
+};
+
+header {
+    background-color: blue (82, 55, 177);
+};
