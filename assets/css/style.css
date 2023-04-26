@@ -1,0 +1,8 @@
+body {
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.CurrentWeather{
+    width: 100%;
+    border-style: solid;
+};
