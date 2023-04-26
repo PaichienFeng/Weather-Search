@@ -130,6 +130,7 @@ function createWeatherIcon2 (iconCode){
     imgEL.style.width='50px';
     imgEL.style.height='50px';
     imgEL.style.display='block'
+    
     // imgEL.classList.add('weather-icon');
     forcastEL.append(imgEL);
 }
@@ -151,8 +152,14 @@ function Forcast(dataF) {
       forcastEL.append(forcastCard);
     }
     
+};
+
+function renderSearchHistory(event){
+   buttonData= event.target.getAttribute('data-city');
+   renderCityname(buttonData);
 }
 
 
 citynameForm.addEventListener('submit', formsubmitHandler);
+storedcityButton.addEventListener('click',renderSearchHistory);
 init();
