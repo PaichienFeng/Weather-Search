@@ -160,7 +160,7 @@ function Forcast(dataF) {
     }
 
     const keys = Object.keys(dailyForcasts)
-    for (let i =0; i< keys.length; i++){
+    for (let i =1; i< keys.length; i++){
 
         const forecast = dailyForcasts[keys[i]]
         const weatherIcon2 = createWeatherIcon2(dataF.list[i].weather[0].icon);
