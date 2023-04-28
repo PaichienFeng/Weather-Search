@@ -1,35 +1,88 @@
 body {
-    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Roboto","Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .CurrentWeather{
     width: 85%;
     border-style: solid;
+    border-width: 1.5px;
+    border-radius: 5px;
     display: none;
-};
+    padding-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
-h3{
+h4{
     width: 100%;
-};
-
-#sd{
     display: none;
 }
 
-.block {
-    display: block;
-}
-
-.weather-icon{
-    width: 5px;
-    height: 5px
-};
 
 .dashboard{
     
     color: white;
-};
+    font-weight:bold;
+}
 
 header {
-    background-color: blue (82, 55, 177);
-};
+    
+    background: linear-gradient(to right, rgb(110, 110, 184), rgb(64, 64, 176)); 
+    height: 50px;
+}
+
+#citynameForm{
+    position: relative;
+    left: 6px;
+}
+
+.storedcityButton button{
+    border-style: hidden;
+    background-color: rgb(182, 182, 182);
+    border-radius: 5px;
+    height: 35px;
+    padding: none;
+    margin: none;
+
+}
+
+.btn {
+    display: block;
+    color: white;
+    margin-top: 10px;
+    margin-left: 4px;
+    margin-bottom: 20px;
+    width: 250px;
+    background-color: rgb(91, 114, 226);
+  
+}  
+
+.title{
+    font-weight: bold;
+}
+
+#cityname{
+    border-radius: 5px;
+    width: 250px;
+}
+
+nav{
+    position: relative;
+    left: 10px;
+}
+
+.forcastContainer div{
+    background-color: rgb(53, 53, 109);
+    border-radius: 5px;
+    margin-left: 10px;
+    padding: 12px;
+    line-height: 50px;
+    color: white;
+    max-width: 195px;
+
+}
+
+@media screen and (max-width: 768px) {
+    .forcastContainer div {
+      font-size: x-small;
+    };}

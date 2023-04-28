@@ -40,6 +40,8 @@ function printout() {
         li.textContent = City;
         li.setAttribute("data-city", City);
         li.setAttribute("class","block")
+        li.style.width= '250px';
+        li.style.margin='10px';
         storedcityButton.append(li);
 
     }
@@ -101,26 +103,9 @@ function createWeatherIcon(iconCode){
     const imgEL=document.createElement('img');
     const iconurl = "http://openweathermap.org/img/w/" + iconCode + ".png";
     imgEL.setAttribute('src', iconurl);
+    imgEL.setAttribute('class', 'img1');
     currentWeatherEL.append(imgEL);
 
-}
-
-
-function currentWeather(data){
-    currentWeatherEL.textContent = '';
-
-    const weatherIconEl = createWeatherIcon(data.weather[0].icon);
-   const currentWeatherH2 = document.createElement('h2');
-   currentWeatherH2.innerHTML = data.name + ' (' + dayjs().format('MMM D, YYYY') + ')';
-
-   const currentWeatherP = document.createElement('p');
-   currentWeatherP.innerHTML = 'Temp: '+ (data.main.temp - 273.15).toFixed(1) + "°C <br> Wind: " + data.wind.speed + "(m/s) <br>Humidity: " + data.main.humidity + "%";
-
-   currentWeatherEL.append(currentWeatherH2);
-   currentWeatherEL.append(currentWeatherP);
-   currentWeatherEL.style.display = 'block';
-   
-   
 }
 
 function createWeatherIcon2 (iconCode){
@@ -129,35 +114,83 @@ function createWeatherIcon2 (iconCode){
     imgEL.setAttribute('src', iconurl);
     imgEL.style.width='50px';
     imgEL.style.height='50px';
-    imgEL.style.display='block'
-    
-    // imgEL.classList.add('weather-icon');
-    forcastEL.append(imgEL);
+    return imgEL;
 }
+
+function currentWeather(data){
+    currentWeatherEL.textContent = '';
+
+    const weatherIconEl = createWeatherIcon(data.weather[0].icon);
+   const currentWeatherH2 = document.createElement('h2');
+   currentWeatherH2.innerHTML = data.name + ' (' + dayjs().format('MMM D, YYYY') + ')';
+   currentWeatherH2.setAttribute('class', 'title');
+   const currentWeatherP = document.createElement('p');
+   currentWeatherP.innerHTML = 'Temp: '+ (data.main.temp - 273.15).toFixed(1) + "°C <br><br> Wind: " + data.wind.speed + "(m/s) <br><br>Humidity: " + data.main.humidity + "%";
+
+   currentWeatherEL.append(currentWeatherH2);
+   currentWeatherEL.append(currentWeatherP);
+   currentWeatherEL.style.display = 'block';
+   
+   
+}
+
+
 
 function Forcast(dataF) {
 
     forcastEL.textContent = '';
+    const h4 = document.querySelector('h4');
+    h4.style.display='block';
 
-    for (let i = 1; i < 6; i++) {
-      const nextDate = dayjs().add(i, 'day').format('MMM D, YYYY');
-      const forcastCard = document.createElement('div');
+    let dailyForcasts = {};
+    for (let i = 0; i < dataF.list.length; i++) {
+
+      
       const dataFList = dataF.list[i]
-      const weatherIcon2 = createWeatherIcon2(dataFList.weather[0].icon);
-      forcastCard.innerHTML = nextDate+ '<br>Temp: '+ (dataFList.main.temp -273.15).toFixed(1)+ "°C <br> Wind: " + dataFList.wind.speed + "(m/s) <br>Humidity: " + dataFList.main.humidity + "%";
-      
-      forcastCard.setAttribute('class','col-2')
-      forcastCard.style.display='block';
-      
-      forcastEL.append(forcastCard);
+      const date = dayjs.unix(dataFList.dt).format('MMM D, YYYY');
+
+      if(!dailyForcasts[date]){
+        dailyForcasts[date] = {
+            date: date,
+            temp: (dataFList.main.temp -273.15).toFixed(1),
+            wind: dataFList.wind.speed,
+            humidity: dataFList.main.humidity,
+        };
+      }
     }
+
+    const keys = Object.keys(dailyForcasts)
+    for (let i =0; i< keys.length; i++){
+
+        const forecast = dailyForcasts[keys[i]]
+        const weatherIcon2 = createWeatherIcon2(dataF.list[i].weather[0].icon);
+        const forcastCard = document.createElement('div');
+        forcastCard.innerHTML = forecast.date+ '<br>Temp: '+ forecast.temp + "°C <br> Wind: " + forecast.wind + "(m/s) <br>Humidity: " + forecast.humidity + "%";
     
+        forcastCard.setAttribute('class','col-2');
+
+        forcastCard.style.display='block';
+    
+        forcastEL.append(forcastCard);
+        forcastCard.append(weatherIcon2);
+    }
+
+
 };
 
 function renderSearchHistory(event){
-   buttonData= event.target.getAttribute('data-city');
-   renderCityname(buttonData);
-}
+   
+    if (event.target.matches('button')){
+        
+        buttonData= event.target.getAttribute('data-city');
+        renderCityname(buttonData);
+   
+    }else{
+        return;
+    }
+};
+
+       
 
 
 citynameForm.addEventListener('submit', formsubmitHandler);
